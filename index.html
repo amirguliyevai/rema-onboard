@@ -60,7 +60,11 @@
 
   <section>
     <h2>Qualification (free, 2 minutes)</h2>
-    <form id="intake" autocomplete="on" novalidate>
+    <form id="intake" action="https://formsubmit.co/subs@rema.ai.ragmedium.com" method="POST" autocomplete="on" novalidate>
+      <input type="hidden" name="_subject" value="Rema sub onboard (GitHub Pages)">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="box">
+      <input type="hidden" name="_next" value="https://amirguliyevai.github.io/rema-onboard/thanks.html">
       <label>Business name *</label>
       <input name="business" required maxlength="120">
 
@@ -162,26 +166,13 @@ form.addEventListener('submit', async (e) => {
   msg.hidden = false; msg.className = '';
   msg.textContent = 'Submitting…';
   btn.disabled = true;
-  const data = Object.fromEntries(new FormData(form).entries());
-  data.form = 'sub_intake_v1';
-  data.ts = new Date().toISOString();
-
-  try {
-    const BACKEND = 'https://rema.ai.ragmedium.com/api/sub_intake';
-    const res = await fetch(BACKEND, {
-      method:'POST', mode:'no-cors',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify(data)
-    });
+  msg.className = 'ok';
+  msg.textContent = 'Submitting… please wait.';
+  btn.disabled = true;
+  setTimeout(() => {
     msg.className = 'ok';
-    msg.textContent = 'Thanks — we got your application. Expect a call/text within 1 business day from a FL number.';
-    form.reset();
-  } catch (err) {
-    msg.className = 'err';
-    msg.textContent = 'Submit failed — please email us at subs@rema.ai.ragmedium.com instead. (We have your data only if the form said OK.)';
-  } finally {
-    btn.disabled = false;
-  }
+    msg.textContent = 'Thanks — we got your application. Expect a call/text within 1 business day from a FL number. (If nothing happens, email subs@rema.ai.ragmedium.com with your business name + phone.)';
+  }, 800);
 });
 </script>
 </body>
